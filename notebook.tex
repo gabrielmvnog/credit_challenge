@@ -1,0 +1,895 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Desafio cr?dito - Pic Pay}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Desafio Crédito - Pic Pay}\label{desafio-cruxe9dito---pic-pay}
+
+Desafio realizado no processo de contratamento do Pic Pay, para esse
+desafio foi recebido um arquivo '.csv' a ser analisado. Os dados
+contidos se tratam de transações, o desafio é pegar essas transações e
+conseguir classificar entre Fraudulentos ou Não Fraudulentos.
+
+\paragraph{Imports necessários}\label{imports-necessuxe1rios}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{c+c1}{\PYZsh{} Sklearn}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVC}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{classification\PYZus{}report}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        
+        \PY{c+c1}{\PYZsh{} Imblearn}
+        \PY{k+kn}{from} \PY{n+nn}{imblearn}\PY{n+nn}{.}\PY{n+nn}{over\PYZus{}sampling} \PY{k}{import} \PY{n}{RandomOverSampler}
+        \PY{k+kn}{from} \PY{n+nn}{imblearn}\PY{n+nn}{.}\PY{n+nn}{over\PYZus{}sampling} \PY{k}{import} \PY{n}{SMOTE}
+        \PY{k+kn}{from} \PY{n+nn}{imblearn}\PY{n+nn}{.}\PY{n+nn}{over\PYZus{}sampling} \PY{k}{import} \PY{n}{ADASYN}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \subsection{Exploração de dados}\label{explorauxe7uxe3o-de-dados}
+
+Ao receber o dataset é recomendado passar pela fase de exploração para
+que se tenha um conhecimento dos dados com que estamos lidando.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{desafio\PYZus{}fraude.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}    Ocorrencia       PP1       PP2       PP3       PP4       PP5       PP6  \textbackslash{}
+        0    -44299.0 -1.239996  0.985194 -1.005080  0.251323  0.872854 -1.677811   
+        1    -44300.0 -0.472690  1.869177 -0.277741  1.122846  1.526166  0.262325   
+        2    -44301.0  0.277314  3.455314 -0.722444 -0.428284  2.512025 -0.540760   
+        3    -44301.0 -1.061770 -0.105481 -0.226711 -0.929524 -0.100625 -0.300173   
+        4    -44302.0  4.622715  2.621667  0.872085  0.374010  1.456021 -1.531875   
+        5    -44302.0 -1.226897 -0.057421 -0.645474 -1.209587  0.508127  0.231503   
+        6    -44302.0 -1.187076 -0.283468 -0.160228 -0.871200 -0.157315 -0.019609   
+        7    -44302.0  3.532498  4.777980 -0.899279  0.341794 -2.695645  0.814919   
+        8    -44302.0 -1.273200  0.430986 -0.374847  1.429721  0.803957  0.597754   
+        9    -44303.0  0.862315  0.424651 -1.512077  1.592340  1.109404  0.505721   
+        
+                PP7       PP8       PP9  {\ldots}      PP21      PP22      PP23      PP24  \textbackslash{}
+        0  1.451311 -0.478908 -0.009459  {\ldots}  0.387768  0.286200  0.128686  1.280392   
+        1  0.242333 -0.006108 -1.659659  {\ldots} -0.387745 -0.434629  0.512801 -0.110994   
+        2  0.345111 -0.013655 -0.233508  {\ldots} -0.630255 -0.388096  0.697177 -0.523084   
+        3  0.029912 -0.205934  0.233190  {\ldots} -0.147422 -0.426827  0.070413  0.283090   
+        4 -0.162837 -1.331547 -0.340639  {\ldots}  0.221196  0.804017  1.309062  1.505088   
+        5  0.256178 -0.073481 -0.805029  {\ldots}  0.392138  1.018474 -0.068629  0.190145   
+        6 -0.042348 -0.061183  0.292538  {\ldots} -0.086133 -0.313357  0.122671  0.289686   
+        7  1.299022 -0.491621  1.140031  {\ldots} -0.236773  0.487309 -1.403715  1.384792   
+        8  0.377943 -0.021881 -1.524914  {\ldots}  0.325682  0.717795 -0.046891 -0.024916   
+        9 -0.830403  0.055472  1.661282  {\ldots} -0.017046 -0.066471 -0.271259 -0.552943   
+        
+               PP25      PP26      PP27      PP28  Sacado  Fraude  
+        0 -0.301116 -0.673309 -0.069611 -0.009597  -28.38       0  
+        1 -0.350975 -0.073826  0.035071 -0.080140 -407.00       0  
+        2 -0.069830  0.196482  0.052145 -0.166683 -800.00       0  
+        3 -0.487739  0.288220 -0.035644 -0.007305  -31.28       0  
+        4  0.260178 -0.861611 -0.130562  1.023781 -522.16       0  
+        5 -0.393703  0.603708 -0.039229 -0.023810   -2.27       0  
+        6 -0.637261  0.296274 -0.028010 -0.003439   -1.50       0  
+        7  0.056282 -0.339581  0.121420 -0.227391 -384.99       0  
+        8 -0.360409  0.281505 -0.020939 -0.005926   -1.14       0  
+        9  0.043028 -0.971808  0.063580 -0.098239 -203.42       0  
+        
+        [10 rows x 31 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 149504 entries, 0 to 149999
+Data columns (total 31 columns):
+Ocorrencia    149504 non-null float64
+PP1           149504 non-null float64
+PP2           149504 non-null float64
+PP3           149504 non-null float64
+PP4           149504 non-null float64
+PP5           149504 non-null float64
+PP6           149504 non-null float64
+PP7           149504 non-null float64
+PP8           149504 non-null float64
+PP9           149504 non-null float64
+PP10          149504 non-null float64
+PP11          149504 non-null float64
+PP12          149504 non-null float64
+PP13          149504 non-null float64
+PP14          149504 non-null float64
+PP15          149504 non-null float64
+PP16          149504 non-null float64
+PP17          149504 non-null float64
+PP18          149504 non-null float64
+PP19          149504 non-null float64
+PP20          149504 non-null float64
+PP21          149504 non-null float64
+PP22          149504 non-null float64
+PP23          149504 non-null float64
+PP24          149504 non-null float64
+PP25          149504 non-null float64
+PP26          149504 non-null float64
+PP27          149504 non-null float64
+PP28          149504 non-null float64
+Sacado        149504 non-null float64
+Fraude        149504 non-null int64
+dtypes: float64(30), int64(1)
+memory usage: 36.5 MB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}           Ocorrencia            PP1            PP2            PP3  \textbackslash{}
+        count  149504.000000  149504.000000  149504.000000  149504.000000   
+        mean   -84556.497351       0.052341       0.003265      -0.194996   
+        std     27717.828764       1.879429       1.616875       1.391676   
+        min   -133236.000000      -2.454930     -22.057729      -9.382558   
+        25\%   -115196.750000      -1.244085      -0.798563      -1.138473   
+        50\%    -77505.000000       0.037911      -0.080737      -0.359338   
+        75\%    -61698.750000       0.947839       0.590056       0.553689   
+        max    -44299.000000      36.802320      63.344698      33.680984   
+        
+                         PP4            PP5            PP6            PP7  \textbackslash{}
+        count  149504.000000  149504.000000  149504.000000  149504.000000   
+        mean       -0.034791       0.059155      -0.024884       0.024344   
+        std         1.395143       1.335775       1.310610       1.176763   
+        min       -16.875344     -32.911462     -21.307738     -31.527244   
+        25\%        -0.809967      -0.527211      -0.421884      -0.527070   
+        50\%        -0.037359       0.123513       0.245964      -0.013747   
+        75\%         0.818074       0.750125       0.734419       0.563052   
+        max         5.683171      31.356750      21.929312      43.557242   
+        
+                         PP8            PP9  {\ldots}           PP21           PP22  \textbackslash{}
+        count  149504.000000  149504.000000  {\ldots}  149504.000000  149504.000000   
+        mean       -0.004089       0.029855  {\ldots}       0.010331       0.027497   
+        std         1.180590       1.100854  {\ldots}       0.721123       0.705910   
+        min       -16.635979     -15.594995  {\ldots}     -27.202839     -10.503090   
+        25\%        -0.339383      -0.564181  {\ldots}      -0.164951      -0.466301   
+        50\%        -0.036629       0.096734  {\ldots}       0.033799       0.014916   
+        75\%         0.193177       0.679458  {\ldots}       0.225344       0.541273   
+        max        73.216718      13.434066  {\ldots}      34.830382      10.933144   
+        
+                        PP23           PP24           PP25           PP26  \textbackslash{}
+        count  149504.000000  149504.000000  149504.000000  149504.000000   
+        mean        0.007114      -0.002983      -0.035162      -0.001253   
+        std         0.620601       0.606803       0.506207       0.483776   
+        min       -19.002942      -4.022866      -7.519589      -3.220178   
+        25\%        -0.128292      -0.431553      -0.369398      -0.247287   
+        50\%         0.020068      -0.049389      -0.071057       0.057281   
+        75\%         0.164421       0.348706       0.274359       0.331209   
+        max        44.807735       2.824849      10.295397       2.604551   
+        
+                        PP27           PP28         Sacado         Fraude  
+        count  149504.000000  149504.000000  149504.000000  149504.000000  
+        mean       -0.002629      -0.001823     -88.651197       0.001465  
+        std         0.387943       0.304083     247.493546       0.038245  
+        min       -12.152401     -22.620072  -19656.530000       0.000000  
+        25\%        -0.091120      -0.078834     -77.842500       0.000000  
+        50\%        -0.004936      -0.016804     -22.070000       0.000000  
+        75\%         0.068263       0.048241      -5.410000       0.000000  
+        max        22.565679      11.710896      -0.000000       1.000000  
+        
+        [8 rows x 31 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{class\PYZus{}counter} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fraude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distribuição por Classe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{pie}\PY{p}{(}\PY{n}{class\PYZus{}counter}\PY{p}{,} \PY{n}{autopct}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}1.1f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{explode}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{class\PYZus{}counter}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Primeira análise}\label{primeira-anuxe1lise}
+
+Para essa primeira parte foram levantados alguns dados que possibilitam
+entender melhor alguns pontos fortes do conjunto de dados.
+
+Ao usar o .head() já nos é dado algumas informações básicas sobre o
+conjunto. Sabendo que a coluna 'Fraude' é o rótulo, então podemos ver
+que temos 30 características (ou 30 colunas) que podem servir para
+chegar nesse rótulo.
+
+Quando utilizamos a função .info() conseguimos ver que não existem dados
+faltantes, possibilitando ver que o conjunto de dados tem um total de
+150.000 linhas e todas estão contendo um dado, é possivel notar também
+qual a natureza dos dados que estamos trabalhando que nesse caso são
+valores de ponto flutuantes para nossas características e valores
+inteiros para o rótulo.
+
+O uso do .describe() nos trás uma análise mais estatística do conjunto,
+pode-se ver que ele nos trás alguns dos principais valores para termos
+uma noção, como o total de linhas, média, desvio padrão, quartis, valor
+mínimo e valor máximo. Aqui podemos notar que do terceiro quartil até o
+valor máximo e do primeiro quartil até o mínimo valor em muitos dos
+casos dos PP\# tem uma diferença de valor muito maior que a diferença
+dos outros quartis, podendo indicar características de \emph{outliers}
+no conjunto de dados. Esses \emph{outliers} podem estar relacionado com
+itens fraudulentos, mas não é algo exato.
+
+Por último foi realizado uma pequena análise da distribuição dos dados
+por cada rótulo, aqui nota-se que a distribuição é demasiadamente
+desproporcional, sendo 99.9\% rotulados como não fraudulentos (0) e
+0.1\% fraudulentos (1), o que indica over sampling. O gráfico escolhida
+aqui foi de gráfico de pizza para poder ter uma melhor visualização de
+proporção no conjunto de dados.
+
+\subsubsection{Visualização}\label{visualizauxe7uxe3o}
+
+Quando tratamos com dados, é de boa prática realizar a criação de alguns
+gráficos para o auxilar no entendimento do comportamentdo dos mesmos.
+
+Já que estamos tratando com valores numéricos, vale a pena dar uma
+olhada nos dados que serão inseridos no modelo de predição para ver como
+está a distribuição e o escalonamento deles. Entradas que não estiverem
+em um padrão ou normalização adequados podem não divergir a um resultado
+agradável.
+
+Para continuação do projeto a coluna 'Ocorrencia' e a 'Fraude' vão ser
+descartadas. A primeira pois é incremental, saindo do padrão encontrado
+em outras características, a segunda por ser os rótulos.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Projeção dos valores de ocorrência}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ocorrencia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} X \PYZhy{} características | y \PYZhy{} rótulos}
+        
+        \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fraude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ocorrencia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fraude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{Distribuição das Características}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{X}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+					Distribuição das Características
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Escalonamento}\label{escalonamento}
+
+Ao analisar o conjunto de dados com o histograma e com ajuda do
+.describe(), é notado que pode-se realizar um escalonamento para termos
+melhor resultado no classificador.
+
+Para isso, é utilizado o StandardScaler() do Sklearn que realiza a
+aproximação da média à 0 e o desvio padrão para 1 para cada coluna do
+conjunto de dados.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{scaler} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{scaled\PYZus{}X} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{df\PYZus{}scaled} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{scaled\PYZus{}X}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{X}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+         
+         \PY{n}{df\PYZus{}scaled}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}                 PP1           PP2           PP3           PP4           PP5  \textbackslash{}
+         count  1.495040e+05  1.495040e+05  1.495040e+05  1.495040e+05  1.495040e+05   
+         mean   1.596896e-17  9.315227e-18 -3.345878e-17 -1.368768e-17 -2.433366e-17   
+         std    1.000003e+00  1.000003e+00  1.000003e+00  1.000003e+00  1.000003e+00   
+         min   -1.334064e+00 -1.364426e+01 -6.601820e+00 -1.207088e+01 -2.468285e+01   
+         25\%   -6.898001e-01 -4.959137e-01 -6.779455e-01 -5.556259e-01 -4.389723e-01   
+         50\%   -7.677834e-03 -5.195340e-02 -1.180897e-01 -1.840206e-03  4.817985e-02   
+         75\%    4.764751e-01  3.629175e-01  5.379752e-01  6.113120e-01  5.172816e-01   
+         max    1.955386e+01  3.917534e+01  2.434194e+01  4.098490e+00  2.343038e+01   
+         
+                         PP6           PP7           PP8           PP9          PP10  \textbackslash{}
+         count  1.495040e+05  1.495040e+05  1.495040e+05  1.495040e+05  1.495040e+05   
+         mean  -5.322987e-18  1.977109e-17 -5.703200e-18 -8.269641e-18 -1.368768e-17   
+         std    1.000003e+00  1.000003e+00  1.000003e+00  1.000003e+00  1.000003e+00   
+         min   -1.623894e+01 -2.681227e+01 -1.408783e+01 -1.419344e+01 -2.248984e+01   
+         25\%   -3.029135e-01 -4.685868e-01 -2.840071e-01 -5.396157e-01 -4.250125e-01   
+         50\%    2.066586e-01 -3.236976e-02 -2.756322e-02  6.075180e-02  9.433087e-02   
+         75\%    5.793532e-01  4.577899e-01  1.670915e-01  5.900916e-01  4.912504e-01   
+         max    1.675118e+01  3.699389e+01  6.202073e+01  1.217624e+01  2.329460e+01   
+         
+                {\ldots}          PP20          PP21          PP22          PP23  \textbackslash{}
+         count  {\ldots}  1.495040e+05  1.495040e+05  1.495040e+05  1.495040e+05   
+         mean   {\ldots}  1.520853e-18 -1.901067e-18 -1.368768e-17  3.421920e-18   
+         std    {\ldots}  1.000003e+00  1.000003e+00  1.000003e+00  1.000003e+00   
+         min    {\ldots} -5.186521e+01 -3.773735e+01 -1.491779e+01 -3.063181e+01   
+         25\%    {\ldots} -1.736024e-01 -2.430677e-01 -6.995211e-01 -2.181858e-01   
+         50\%    {\ldots}  8.184682e-02  3.254490e-02 -1.782208e-02  2.087263e-02   
+         75\%    {\ldots}  2.817560e-01  2.981664e-01  7.278231e-01  2.534756e-01   
+         max    {\ldots}  3.320668e+01  4.828605e+01  1.544911e+01  7.218937e+01   
+         
+                        PP24          PP25          PP26          PP27          PP28  \textbackslash{}
+         count  1.495040e+05  1.495040e+05  1.495040e+05  1.495040e+05  1.495040e+05   
+         mean   1.901067e-17  2.737536e-17  4.372454e-18 -3.326867e-19  3.136760e-18   
+         std    1.000003e+00  1.000003e+00  1.000003e+00  1.000003e+00  1.000003e+00   
+         min   -6.624710e+00 -1.478537e+01 -6.653779e+00 -3.131851e+01 -7.438206e+01   
+         25\%   -7.062773e-01 -6.602791e-01 -5.085712e-01 -2.281023e-01 -2.532591e-01   
+         50\%   -7.647658e-02 -7.091129e-02  1.209957e-01 -5.945502e-03 -4.926777e-02   
+         75\%    5.795780e-01  6.114523e-01  6.872254e-01  1.827401e-01  1.646385e-01   
+         max    4.660225e+00  2.040786e+01  5.386407e+00  5.817441e+01  3.851828e+01   
+         
+                      Sacado  
+         count  1.495040e+05  
+         mean   2.499903e-17  
+         std    1.000003e+00  
+         min   -7.906446e+01  
+         25\%    4.367279e-02  
+         50\%    2.690229e-01  
+         75\%    3.363380e-01  
+         max    3.581972e-01  
+         
+         [8 rows x 29 columns]
+\end{Verbatim}
+            
+    \paragraph{PCA}\label{pca}
+
+Aqui será utilizado o PCA, um algoritmo conhecido para reduzir
+dimensionalidade de matrizes, após a redução é esperado que sobre apenas
+as características mais significativas da matriz.
+
+O que irá passar por esse algoritmo é todas as linhas e apenas as
+colunas que caracterizam se é ou não fraudulento. Vai ser usado nesse
+conjunto para conseguir aprensentar os dados em um gráfico 2D, para
+facilitar a visualização da distribuição no plano.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{scaled\PYZus{}X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{labels\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+m+mi}{0}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Não\PYZhy{}Fraude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{1}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fraude}\PY{l+s+s1}{\PYZsq{}}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n}{labels\PYZus{}dict}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{cond} \PY{o}{=} \PY{n}{label} \PY{o}{==} \PY{n}{y}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{pca}\PY{p}{[}\PY{n}{cond}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{pca}\PY{p}{[}\PY{n}{cond}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{labels\PYZus{}dict}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Visualização 2D com PCA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Aumento de dados de
+Fraude}\label{aumento-de-dados-de-fraude}
+
+Como foi notado nas análises do conjunto de dados, foi possível perceber
+que dados fraudulentos aparecem em pequena proporção no conjunto de
+dados, o que já é de se esperar.
+
+Para resolver esse problema é necessário realizar um balanceamento, caso
+não ocorra isso, no momento em que começarmos a treinar um modelo com
+esses dados ele corre risco de apenas aprender os padrões da classe com
+maior proporção, ou seja, vai ficar enviesado.
+
+Para isso existem algumas técnicas, conhecidas como Oversampling, que
+gostaria de apresentar aqui, são elas:
+
+\begin{itemize}
+\tightlist
+\item
+  Random Oversampling
+\item
+  Smote
+\item
+  Adasyn
+\end{itemize}
+
+\paragraph{Random Oversampling}\label{random-oversampling}
+
+É o algoritmo mais simples dos três, a única coisa que ele faz é pegar
+os dados que já existem e duplicar os que estão em minoria para ficarem
+na mesma proporção dos dados em maioria.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{X\PYZus{}rand\PYZus{}os}\PY{p}{,} \PY{n}{y\PYZus{}rand\PYZus{}os} \PY{o}{=} \PY{n}{RandomOverSampler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}resample}\PY{p}{(}\PY{n}{scaled\PYZus{}X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{y\PYZus{}rand\PYZus{}os}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} (array([0, 1]), array([149285, 149285]))
+\end{Verbatim}
+            
+    Aqui é notado que o balanceamento das classes, as duas agora tem 149.285
+exemplos.
+
+Porém não foi gerado nenhum dado novo, apenas duplicaram os antigos, por
+essa questão não é bom utilizar em um algoritmo de aprendizagem de
+máquina, podendo levar o mesmo ao overfiting, não conseguindo pegar um
+padrão da classe que antes estava em minoria.
+
+ Esse modelo não será utilizado para comparação de modelo
+
+\paragraph{SMOTE}\label{smote}
+
+Esse algoritmo consegue realizar o balanceamento de forma mais
+inteligente, ele se utiliza de um algoritmo de aprendizagem
+supervisionada conhecido por K-NN para criar novas amostras. A ideia é
+bastante simples, ele busca um dado e então vê os K dados mais próximos
+e então gera novos dados entre a distância deles.
+
+Por se tratar de novos dados não teremos mais o problema que nem do
+Random Oversampling e já conseguimos passar ele para um modelo para
+treino, sem medo do modelo falhar.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{X\PYZus{}smote}\PY{p}{,} \PY{n}{y\PYZus{}smote} \PY{o}{=} \PY{n}{SMOTE}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}resample}\PY{p}{(}\PY{n}{scaled\PYZus{}X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{y\PYZus{}smote}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} (array([0, 1]), array([149285, 149285]))
+\end{Verbatim}
+            
+    \paragraph{ADASYN}\label{adasyn}
+
+É uma versão melhorada do SMOTE, praticamente realiza as mesmas coisas
+com uma nova funcionalidade, agora após a criação dos dados é adicionado
+um valor pequeno para que eles tenham uma variância, diminuindo a
+correlação linear entre os pontos.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{X\PYZus{}adasyn}\PY{p}{,} \PY{n}{y\PYZus{}adasyn} \PY{o}{=} \PY{n}{ADASYN}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}resample}\PY{p}{(}\PY{n}{scaled\PYZus{}X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{y\PYZus{}adasyn}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} (array([0, 1]), array([149285, 149283]))
+\end{Verbatim}
+            
+    \subsection{Geração de Modelo
+Preditivo}\label{gerauxe7uxe3o-de-modelo-preditivo}
+
+Essa é a etapa com a qual tanto desejamos, criação de modelo pra
+realizar predições.
+
+Para esse modelo foi escolhido o Support Vector Machine por ser um dos
+algoritmos que já foi considerado o \emph{State Of Art} antes das redes
+neurais e que até hoje consegue sobrepor algumas redes neurais em
+algumas práticas de classificação, o kernel do svm para o
+desenvolvimento do algoritmo foi o linear.
+
+Serão usados dois conjuntos de dados o do smote e o do adasyn para poder
+gerar os modelos e realizar uma comparação, foi deixado o Random
+Oversampling de lado pela simplicidade que ele gera novos dados.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{X\PYZus{}train\PYZus{}smote}\PY{p}{,} \PY{n}{X\PYZus{}test\PYZus{}smote}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}smote}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}smote} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}smote}\PY{p}{,} \PY{n}{y\PYZus{}smote}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+         \PY{n}{X\PYZus{}train\PYZus{}ada}\PY{p}{,} \PY{n}{X\PYZus{}test\PYZus{}ada}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}ada}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}ada} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}adasyn}\PY{p}{,} \PY{n}{y\PYZus{}adasyn}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{clf\PYZus{}smote} \PY{o}{=} \PY{n}{SVC}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}smote}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}smote}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{y\PYZus{}pred\PYZus{}smote} \PY{o}{=} \PY{n}{clf\PYZus{}smote}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}smote}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{Relatório SVM \PYZhy{} SMOTE}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}pred\PYZus{}smote}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}smote}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+		Relatório SVM - SMOTE
+
+              precision    recall  f1-score   support
+
+           0       0.98      0.98      0.98     44508
+           1       0.98      0.98      0.98     45063
+
+    accuracy                           0.98     89571
+   macro avg       0.98      0.98      0.98     89571
+weighted avg       0.98      0.98      0.98     89571
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{clf\PYZus{}ada} \PY{o}{=} \PY{n}{SVC}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}ada}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}ada}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{y\PYZus{}pred\PYZus{}ada} \PY{o}{=} \PY{n}{clf\PYZus{}ada}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}ada}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{Relatório SVM \PYZhy{} ADASYN}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}pred\PYZus{}ada}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}ada}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+		Relatório SVM - ADASYN
+
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      0.99     43987
+           1       1.00      0.99      0.99     45584
+
+    accuracy                           0.99     89571
+   macro avg       0.99      0.99      0.99     89571
+weighted avg       0.99      0.99      0.99     89571
+
+
+    \end{Verbatim}
+
+    \subsection{Conclusão}\label{conclusuxe3o}
+
+Ao realizar uma análise de fraude, tem-se que ter em mente que a métrica
+que deve ser maior é nosso f1 escore, ou média hamônica entre revocação
+e precisão. Não queremos que fraudes passem como não sendo fraude e o
+mesmo vale para quando algo que não é fraude passe como sendo fraude, os
+dois poderiam acarretar um problema para a empresa.
+
+No final do treinamento foi notado que o modelo treinado com SMOTE teve
+um f1 escore de 98\% o que já pode ser algo bom e o modelo com ADASYN
+conseguiu alcançar os 99\%.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
